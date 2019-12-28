@@ -14,12 +14,13 @@ class binary_search_tree:
         self.root = None
 
 # NODE INSERTION
+
     def insert(self, value):
         # check if root is empty, if so add the value as the root node using the Node class
         if self.root == None:
             self.root = node(value)
         else:
-            # private recursive insert function represented by the _
+            # private recursive insert function   by the _
             self._insert(value, self.root)
 
     def _insert(self, value, current_node):
@@ -41,8 +42,8 @@ class binary_search_tree:
         else:
             # if the value = curr node
             print("value is already in the tree!")
-# TREE HEIGHT
 
+# TREE HEIGHT
     def height(self):
         if self.root != None:
             # call private recrusive function
@@ -62,8 +63,30 @@ class binary_search_tree:
         # whichever subtree is higher, is the height of the tree
         return max(left_subtree_height, right_subtree_height)
 
+# TREE SEARCH
+    def search(self, value):
+        if self.root != None:
+            return self._search(value, self.root)
+        else:
+            return False
+
+    def _search(self, value, current_node):
+        if value == current_node.value:
+            print("Found value: " + str(current_node.value))
+            return True
+        # recursively search the left subtree
+        elif value < current_node.value and current_node.left_child != None:
+            return self._search(value, current_node.left_child)
+
+        # recursively search the right subtree
+        elif value > current_node.value and current_node.right_child != None:
+            return self._search(value, current_node.right_child)
+        else:
+            print("Value {} is not in the tree" .format(str(value)))
+            return False
+
 # TREE PRINT
-     def print_tree(self):
+    def print_tree(self):
         if self.root != None:
             self._print_tree(self.root)  # call private recrusive function
 
@@ -73,15 +96,18 @@ class binary_search_tree:
             print(str(current_node.value))
             self._print_tree(current_node.right_child)
 
+
 # fill trees with random number_of_elements with values upto max_int
-def fill_tree(tree, number_of_elements=100, max_int=1000):
+def fill_tree(tree, number_of_elements=10, max_int=15):
     from random import randint
     for _ in range(number_of_elements):
         current_element = randint(0, max_int)
         tree.insert(current_element)
     return tree
 
+
 tree = binary_search_tree()
 tree = fill_tree(tree)
 tree.print_tree()
+tree.search(3)
 print("Tree height: " + str(tree.height()))
