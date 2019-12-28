@@ -1,4 +1,7 @@
 
+# initilize node class
+
+
 class node:
     def __init__(self, value=None):
         self.value = value
@@ -14,27 +17,30 @@ class binary_search_tree:
         # check if root is empty, if so add the value as the root node using the Node class
         if self.root == None:
             self.root = node(value)
-        else:  # private insert function represented by the _
+        else:
+            # private recursive insert function represented by the _
             self._insert(value, self.root)
 
-    def _insert(self, value, current_node):  # recursive insert function
-        # check is the past value is less than the current node
-        if value < current_node.value:  # break this case into 2 more cases
-            # Case1 : current node doesnt have a left child (lesser node),
-            # if so create a new node and insert the value
+    def _insert(self, value, current_node):
+        # check if the past value is less than the current node
+        if value < current_node.value:
+            # If the current node doesnt have a left child (lesser node),create a new node and insert the value
             if current_node.left_child == None:
                 current_node.left_child = node(value)
             else:
                 self._insert(value, current_node.left_child)  # recursive call
+
         elif value > current_node.value:
+             # If the current node doesnt have a right child (lesser node),create a new node and insert the value
             if current_node.right_child == None:
                 current_node.right_child = node(value)
             else:
-                self._insert(value, current_node.right_child)
+                self._insert(value, current_node.right_child)  # recursive call
         else:
-            # value = curr node
+            # if the value = curr node
             print("value is already in the tree!")
 
+# helper functions
     def print_tree(self):
         if self.root != None:
             self._print_tree(self.root)
@@ -44,6 +50,8 @@ class binary_search_tree:
             self._print_tree(current_node.left_child)
             print(str(current_node.value))
             self._print_tree(current_node.right_child)
+
+# fill trees with random num_elements with values upto max_int
 
 
 def fill_tree(tree, num_elements=10, max_int=1000):
